@@ -32,8 +32,51 @@ def openSerial(port, baudrate=9600, bytesize=serial.EIGHTBITS, parity=serial.PAR
 
     return ser
 
-# if __name__ == '__main__':
+#############################################################
+# Write Port
+#############################################################
+def writePort(ser, data):
+    ser.write(data)
 
-ser = openSerial('COM2')
-time.sleep(30)
+def writePortUnicode(ser, data):
+    ser.write(data.encode())
+
+#############################################################
+# Read Port
+#############################################################
+def read(ser, size=1, timeout=None):
+    ser.timeout = timeout
+    readed = ser.read(size)
+    return readed
+
+
+if __name__ == '__main__':
+    ser = openSerial('COM2')
+
+    # # 포트 쓰기
+    # writePort(ser, 'HelloWorld\r\n'.encode())
+    # writePortUnicode(ser, 'HelloWorld\r\n')
+
+    # # 포트 읽기
+    # # Read 1byte : 1byte만 읽고서 return
+    # ic(read(ser))
+
+    # # Read 10byte : 10byte 읽고서 return
+    # ic(read(ser, 10))
+
+    # Read with timeout 5 seconds : 5초 대기한 후에 데이터가 없으면 return
+    ic(read(ser, 1, 5))
+    # ic(read(ser, timeout=5, size=1))
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -89,8 +89,8 @@ if __name__ == '__main__':
     # # Read until EOF
     # ic(readEOF(ser))
 
-    # Read until ExitCode
-    ic(readuntilExitCode(ser))
+    # # Read until ExitCode
+    # ic(readuntilExitCode(ser))
 
 
 

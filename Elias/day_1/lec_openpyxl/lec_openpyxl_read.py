@@ -154,17 +154,17 @@ ws = wb.active      # 현재 활성화되어 있는 sheet(저장할때 선택된
 #         ic(row_valuse)
 #         break
 
-#############################################################
-# Get data with iter_rows
-#############################################################
-for row in ws.iter_rows(min_row=6):
-    row_valuse = [elem.value for elem in row]
-    ic(row_valuse)
-    break
+# #############################################################
+# # Get data with iter_rows
+# #############################################################
+# for row in ws.iter_rows(min_row=6):
+#     row_valuse = [elem.value for elem in row]
+#     ic(row_valuse)
+#     break
 
-#############################################################
-# Get data with sliding
-#############################################################
-for row in ws['A6': 'J20']:
-    row_valuse = [elem.value for elem in row]
-    ic(row_valuse)
+# #############################################################
+# # Get data with sliding
+# #############################################################
+# for row in ws['A6': 'J20']:
+#     row_valuse = [elem.value for elem in row]
+#     ic(row_valuse)

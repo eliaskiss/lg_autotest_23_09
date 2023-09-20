@@ -30,3 +30,110 @@
 # ka 01 01 --> response a 01 OK01x
 # ka 01 00 --> response a 01 OK00x
 # ka 01 ff --> response a 01 OK01x or a 01 OK00x
+
+from lec_pyserial_class import MySerial
+import json
+from datetime import datetime
+
+RETURN_CODE = b'\x0d'
+
+ser = MySerial()
+is_power_on = False
+ser.openSerial('COM2')
+
+print('Program is running...')
+
+while True:
+    # Enter키가 입력될때까지의 데이터를 읽기
+    readed = ser.readuntilExitCode(RETURN_CODE)
+    print('#' * 100)
+
+    # 읽어온 데이터 출력
+    print('Readed byte string:', readed)
+
+    # byte array -> Unicode decoding
+    # 문자열(Unicode)로 디코딩을 해야만 문자열 관련 함수 사용가능
+    readed = readed.decode()
+    # ka 01 00 KA 01 00 Ka 01 00 --> 소문자로 변환
+    readed = readed.lower()
+    print('Readed Unicode String:', readed)
+
+    # 프로그램 종료조건 : EXIT
+    if readed == 'exit':
+        print('Done')
+        break
+
+    # ka 01 01
+    # ka : Command
+    # 01 : SetID
+    # 01 : Value
+    datalist = readed.split(' ') # 'ka 01 01' --> ['ka', '01', '01']
+
+    # 커맨드 포맷 점검
+    if not(len(readed) == 8 and len(datalist) == 3):
+        msg = 'Wrong command format!!!\r\n'
+        print(msg)
+        ser.writePortUnicode(msg)
+        continue
+
+    command = datalist[0]
+    setId = datalist[1]
+    value = datalist[2]
+    print(f'Command: {command}, SetID: {setId}, Value: {value}')
+
+    response = ''
+
+    # 명령어 확인
+    if command == 'ka':
+        # Power Off
+        if value == '00':
+            is_power_on = False
+            response = f'OK{value}x'  # a 01 OK01x
+            print('Changed power status:', is_power_on)
+        # Power On
+        elif value == '01':
+            is_power_on = True
+            response = f'OK{value}x'
+            print('Changed power status:', is_power_on)
+        # Check Power Status
+        elif value == 'ff':
+            response = 'OK01x' if is_power_on is True else 'OK00x'
+            print('Current power status:', is_power_on)
+        # Not supported value
+        else:
+            response = f'NG{value}x'
+            print('Wrong Value!!!')
+
+        # a 01 OK01x
+        response = f'{command[1]} {setId} {response}\r\n'
+    elif command == 'kb':
+        pass
+    else:
+        print('Not supported command!!!')
+        response = 'Not Supported command!!!\r\n'
+
+    # 로그파일 저장
+    jsonData = {'command': command, 'setId':setId, 'value':value, 'response':response}
+    jsonString = json.dumps(jsonData) # Dictionary Object --> string ('{"commnad":ka, ....
+    # jsonData = json.loads(jsonString) # String --> Dictionary Object
+    print('JsonString:', jsonString)
+
+    # 현재시간
+    now = datetime.now()
+    print('Now:', now)
+
+    # https://www.geeksforgeeks.org/python-datetime-strptime-function/
+    # datetime object --> string
+    now = now.strftime('[%Y-%m-%d %H:%M:%S]') # [2023-08-23 08:30:11]
+
+    # f = open(...)
+    # f.write(...)
+    # f.close()
+    with open('command.log', 'a', encoding='utf8') as f:
+        f.write(f'{now} {jsonString}\n')
+
+    ser.writePortUnicode(response)
+
+
+ser.closeSerial()
+

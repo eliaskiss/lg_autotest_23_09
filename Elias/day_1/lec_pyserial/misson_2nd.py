@@ -33,7 +33,7 @@
 
 from lec_pyserial_class import MySerial
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 RETURN_CODE = b'\x0d'
 
@@ -107,6 +107,7 @@ while True:
         # a 01 OK01x
         response = f'{command[1]} {setId} {response}\r\n'
     elif command == 'kb':
+        # TODO: kb 커맨드 처리필요
         pass
     else:
         print('Not supported command!!!')
@@ -125,6 +126,10 @@ while True:
     # https://www.geeksforgeeks.org/python-datetime-strptime-function/
     # datetime object --> string
     now = now.strftime('[%Y-%m-%d %H:%M:%S]') # [2023-08-23 08:30:11]
+    # now = datetime.strptime("2023:09:20", "%Y:%m:%d")
+    # tomorrow = now + timedelta(days=1)
+    # yesterday = now - timedelta(days=1)
+    # yesterday = now + timedelta(days=-1)
 
     # f = open(...)
     # f.write(...)

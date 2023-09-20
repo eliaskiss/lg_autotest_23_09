@@ -68,7 +68,7 @@ class MySerial:
         readed = b''
         while True:
             data = self.ser.read()
-            ic(data)
+            # ic(data)
             readed += data
 
             if data == code:
@@ -86,30 +86,28 @@ if __name__ == '__main__':
     ser = MySerial('COM2')
     print(ser)
 
-    # 포트쓰기
-    ser.writePortUnicode('안녕 세상아~')
+    # # 포트쓰기
+    # ser.writePortUnicode('안녕 세상아~')
 
     # 포트 쓰기
-    ser.writePort(ser, 'HelloWorld\r\n'.encode())
-    ser.writePortUnicode(ser, 'HelloWorld\r\n')
-    ser.writePortUnicode(ser, '안녕 세상아~~\r\n')
+    # ser.writePort('HelloWorld\r\n'.encode())
 
     # 포트 읽기
     # Read 1byte : 1byte만 읽고 retrun
-    ic(ser.read())
+    # ic(ser.read())
 
     # Read 10 bytes : 10bytes 읽고서 return
-    ic(ser.read(10))
+    # ic(ser.read(10))
 
     # Read with timeout 5 seconds : 5초 대기한 후에 데이터가 없으면 return
-    ic(ser.read(1, 5))
-    ic(ser.read(size=1, timeout=5))
+    # ic(ser.read(1, 5))
+    # ic(ser.read(size=1, timeout=5))
 
     # Read Until EOF
-    ic(ser.readEOF())
+    # ic(ser.readEOF())
 
     # Read Until Exit Code (Ctrl + C)
-    ic(ser.readuntilExitCode())
+    # ic(ser.readuntilExitCode())
 
     # 포트 닫기
     ser.closeSerial()

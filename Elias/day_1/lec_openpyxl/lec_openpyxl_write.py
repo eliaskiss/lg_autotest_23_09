@@ -41,12 +41,63 @@ ws['A1'].comment = comment
 ############################################################
 # Insert Row
 ############################################################
-ws['A8'] = 'Table Data'
 header = ['V1', 'V2', 'V3', 'V4', 'V5']
 ws.append(header)
 row = [10, 20, 30, 40, 50]
 for i in range(10):
     ws.append(row)
+
+############################################################
+# Insert Datetime
+############################################################
+ws['A14'] = datetime.now()
+ws['B14'] = datetime.now() + timedelta(days=1) # 내일
+ws['C14'] = datetime.now() - timedelta(days=1) # 어제
+ws['D14'] = datetime.now() + timedelta(hours=1) # 한시간뒤
+ws['E14'] = '2023-04-12'
+
+############################################################
+# Merge/Unmerge Target Cell
+############################################################
+ws['A16'] = 'Hello'
+ws['B16'] = 'World'
+
+# Way I
+# ws.merge_cells(range_string='A16:B16')
+# ws.unmerge_cells('A16:B16')
+
+# Way II
+ws.merge_cells(start_row=16, start_column=1, end_row=16, end_column=2)
+ws.unmerge_cells(start_row=16, start_column=1, end_row=16, end_column=2)
+
+############################################################
+# Insert Image
+############################################################
+img = Image('buz.jpg')
+ws.add_image(img, 'G1')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 wb.save(file_name)
 

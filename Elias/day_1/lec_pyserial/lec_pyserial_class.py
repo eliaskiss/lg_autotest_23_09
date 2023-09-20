@@ -11,6 +11,9 @@ class MySerial:
         if port is not None:
             self.openSerial(port)
 
+    def __str__(self):
+        return f'Port:{self.ser.port}, Baudrate:{self.ser.baudrate}'
+
     #############################################################
     # Open Serial
     #############################################################
@@ -79,7 +82,9 @@ class MySerial:
             self.ser.close()
             self.ser = None
 
-
+if __name__ == '__main__':
+    ser = MySerial('COM2')
+    print(ser)
 
 
 

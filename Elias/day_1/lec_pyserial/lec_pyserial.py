@@ -49,6 +49,24 @@ def read(ser, size=1, timeout=None):
     readed = ser.read(size)
     return readed
 
+#############################################################
+# Read until EOF (putty EOF : Ctrl + J)
+#############################################################
+def readEOF(ser):
+    readed = ser.readline()
+    return readed[:-1]
+
+#############################################################
+# Ctrl + C 가 들어올때까지 Read
+def readuntilExitCode(ser, code=b'\x03'):
+    readed = b''
+    while True:
+        data = ser.read()
+        ic(data)
+        readed += data
+
+        if data == code:
+            return readed[:-1]
 
 if __name__ == '__main__':
     ser = openSerial('COM2')
@@ -64,9 +82,15 @@ if __name__ == '__main__':
     # # Read 10byte : 10byte 읽고서 return
     # ic(read(ser, 10))
 
-    # Read with timeout 5 seconds : 5초 대기한 후에 데이터가 없으면 return
-    ic(read(ser, 1, 5))
+    # # Read with timeout 5 seconds : 5초 대기한 후에 데이터가 없으면 return
+    # ic(read(ser, 1, 5))
     # ic(read(ser, timeout=5, size=1))
+
+    # # Read until EOF
+    # ic(readEOF(ser))
+
+    # Read until ExitCode
+    ic(readuntilExitCode(ser))
 
 
 

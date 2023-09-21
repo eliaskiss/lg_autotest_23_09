@@ -130,15 +130,21 @@ if __name__ == '__main__':
     ################################################################
     # Insert Data
     ################################################################
-    for i in range(10):
-        sql = f'insert into {table_name} (name, age) values(%s, %s);'
-        values = (f'{table_name}_{i+1}', (20 + i))
-        # db.execute_and_commit(sql, values)
-        db.execute_only(sql, values)
-    db.commit_only()
+    # for i in range(10):
+    #     sql = f'insert into {table_name} (name, age) values(%s, %s);'
+    #     values = (f'{table_name}_{i+1}', (20 + i))
+    #     # db.execute_and_commit(sql, values)
+    #     db.execute_only(sql, values)
+    # db.commit_only()
 
-    name = 'Elias Kim'
+    # name = 'Elias Kim'
+    # age = 20
+    # sql = f'insert into elias (reg_datetime, name, age) values("2023-09-21", "{name}", {age});'
+    # db.execute_and_commit(sql)
 
+    ################################################################
+    #
+    ################################################################
 
 
 

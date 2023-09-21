@@ -291,12 +291,96 @@ chart.series.append(series)
 # place the chart starting in cell E1
 ws.add_chart(chart, "E43")
 
+############################################################
+# Create 4th Sheet
+############################################################
+wb.create_sheet('Style')
+wb.active = 3
+ws = wb['Style']
 
+from openpyxl.styles import Font, Color, PatternFill, GradientFill, Alignment, Side, Border
 
+############################################################
+# Set Color
+############################################################
+red_font = Font(color='FF0000')
+ws['A1'] = 'Red'
+ws['A1'].font = red_font
 
+############################################################
+# Set Font Combination
+############################################################
+combi_font = Font(color='395B64', size=20, bold=True, italic=True,
+                  underline='singleAccounting', # underline: single, double, singleAccounting, doubleAccounting
+                  strikethrough=True)
+ws['A2'] = 'Combination'
+ws['A2'].font = combi_font
 
+############################################################
+# Set Font Name
+############################################################
+arial_font = Font(name='arial', size=14)
+ws['A3'] = 'Arial'
+ws['A3'].font = arial_font
 
+############################################################
+# Set Box line
+############################################################
 
+# Cell Border
+# BORDER_NONE = None
+# BORDER_DASHDOT = 'dashDot'
+# BORDER_DASHDOTDOT = 'dashDotDot'
+# BORDER_DASHED = 'dashed'
+# BORDER_DOTTED = 'dotted'
+# BORDER_DOUBLE = 'double'
+# BORDER_HAIR = 'hair'
+# BORDER_MEDIUM = 'medium'
+# BORDER_MEDIUMDASHDOT = 'mediumDashDot'
+# BORDER_MEDIUMDASHDOTDOT = 'mediumDashDotDot'
+# BORDER_MEDIUMDASHED = 'mediumDashed'
+# BORDER_SLANTDASHDOT = 'slantDashDot'
+# BORDER_THICK = 'thick'
+# BORDER_THIN = 'thin'
+
+thin = Side(border_style='thin', color='000000')
+ws['B4'] = 'Thin'
+ws['B4'].border = Border(top=thin, left=thin, right=thin, bottom=thin)
+
+double = Side(border_style='double', color='000000')
+ws['B6'] = 'Double'
+ws['B6'].border = Border(top=double, left=double, right=double, bottom=double)
+
+############################################################
+# Set Cell Color
+############################################################
+
+# Cell Fill
+# FILL_NONE = 'none'
+# FILL_SOLID = 'solid'
+# FILL_PATTERN_DARKDOWN = 'darkDown'
+# FILL_PATTERN_DARKGRAY = 'darkGray'
+# FILL_PATTERN_DARKGRID = 'darkGrid'
+# FILL_PATTERN_DARKHORIZONTAL = 'darkHorizontal'
+# FILL_PATTERN_DARKTRELLIS = 'darkTrellis'
+# FILL_PATTERN_DARKUP = 'darkUp'
+# FILL_PATTERN_DARKVERTICAL = 'darkVertical'
+# FILL_PATTERN_GRAY0625 = 'gray0625'
+# FILL_PATTERN_GRAY125 = 'gray125'
+# FILL_PATTERN_LIGHTDOWN = 'lightDown'
+# FILL_PATTERN_LIGHTGRAY = 'lightGray'
+# FILL_PATTERN_LIGHTGRID = 'lightGrid'
+# FILL_PATTERN_LIGHTHORIZONTAL = 'lightHorizontal'
+# FILL_PATTERN_LIGHTTRELLIS = 'lightTrellis'
+# FILL_PATTERN_LIGHTUP = 'lightUp'
+# FILL_PATTERN_LIGHTVERTICAL = 'lightVertical'
+# FILL_PATTERN_MEDIUMGRAY = 'mediumGray'
+
+ws['A7'] = 'Solid'
+ws['A7'].fill = PatternFill('solid', fgColor='DDDDDD')
+
+ws['A8'] = 'Gradient'
+ws['A8'].fill = GradientFill(stop=('000000', 'FFFFFF'))
 
 
 

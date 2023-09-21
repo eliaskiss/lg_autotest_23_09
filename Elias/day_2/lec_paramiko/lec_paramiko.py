@@ -82,13 +82,6 @@ class MySSH:
             ic('Client is not connected!!!')
 
     ########################################################
-    # Disconnect
-    ########################################################
-    def disconnect(self):
-        if self.client is not None:
-            self.client.close()
-
-    ########################################################
     # Get File from Host (SFTP)
     # srcFilePath: Server(host), dstFilePath: Local(PC, Client)
     ########################################################
@@ -219,6 +212,13 @@ class MySSH:
         if self.scp_client == None:
             self.scp_client = SCPClient(self.client.get_transport())
         self.scp_client.put(srcDirPath, dstDirPath, recursive=True)
+
+    ########################################################
+    # Disconnect
+    ########################################################
+    def disconnect(self):
+        if self.client is not None:
+            self.client.close()
 
 if __name__ == '__main__':
     ssh = MySSH()

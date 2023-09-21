@@ -227,8 +227,8 @@ chart.style = 13
 chart.x_axis.title = 'Test'
 chart.y_axis.title = 'Percentage'
 
-cats = Reference(ws, min_col=1, min_row=1, max_row=7)
-data = Reference(ws, min_col=2, min_row=1, max_col=3, max_row=7)
+cats = Reference(ws, min_col=1, min_row=31, max_row=36)
+data = Reference(ws, min_col=2, min_row=31, max_col=3, max_row=36)
 chart.add_data(data, titles_from_data=True)
 chart.set_categories(cats)
 
@@ -302,10 +302,13 @@ from openpyxl.styles import Font, Color, PatternFill, GradientFill, Alignment, S
 
 ############################################################
 # Set Color
+# https://openpyxl.readthedocs.io/en/stable/styles.html
 ############################################################
 red_font = Font(color='FF0000')
 ws['A1'] = 'Red'
 ws['A1'].font = red_font
+ws['B1'] = 'Red'
+ws['B1'].font = Font(color=Color(indexed=2))
 
 ############################################################
 # Set Font Combination

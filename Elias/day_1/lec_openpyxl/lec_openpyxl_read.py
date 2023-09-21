@@ -168,3 +168,15 @@ ws = wb.active      # 현재 활성화되어 있는 sheet(저장할때 선택된
 # for row in ws['A6': 'J20']:
 #     row_valuse = [elem.value for elem in row]
 #     ic(row_valuse)
+
+#############################################################
+# Check Hidden Row
+#############################################################
+ic(ws.row_dimensions[6].hidden)
+ic(ws.row_dimensions[7].hidden)
+
+#############################################################
+# Check Hidden Column
+#############################################################
+ic(ws.column_dimensions['F'].hidden)
+ic(ws.column_dimensions['G'].hidden)

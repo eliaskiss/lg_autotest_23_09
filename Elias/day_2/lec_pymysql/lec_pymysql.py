@@ -67,7 +67,7 @@ class Database:
     ################################################
     # Commit Only
     ################################################
-    def execute_and_commit(self):
+    def execute_only(self):
         try:
             self.conn.commit()
         except Exception as e:

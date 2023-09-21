@@ -100,7 +100,89 @@ class MySSH:
                 ic('SSH is not connected!!!')
         self.ftp_client.get(srcFilePath, dstFilePath)
 
+    ################################################################
+    # Put File to Host (SFTP)
+    # scrFilePath: Local(PC, Client), dstFilePath: Server(host)
+    ################################################################
+    def putToHost(self, srcFilePath, dstFilePath):
+        # SFTP 객체를 생성하지 않았으면...(접속한적이 없으면)
+        if self.ftp_client is None:
+            # Get SFTP object from SSHClient
+            self.ftp_client = self.client.open_sftp()
+        self.ftp_client.put(srcFilePath, dstFilePath)
 
+    ###############################################################
+    # Rename file on Host (SFTP)
+    # srcFilePath: Old Name, desFilePath: New Name
+    ###############################################################
+    def renameHostFile(self, srcFilePath, dstFilePath):
+        # SFTP 객체를 생성하지 않았으면...(접속한적이 없으면)
+        if self.ftp_client is None:
+            # Get SFTP object from SSHClient
+            self.ftp_client = self.client.open_sftp()
+        self.ftp_client.rename(srcFilePath, dstFilePath)
+
+    ###############################################################
+    # Delete file on Host (SFTP)
+    # filePath: Server(host)
+    ###############################################################
+    def deleteHostFile(self, filePath):
+        # SFTP 객체를 생성하지 않았으면...(접속한적이 없으면)
+        if self.ftp_client is None:
+            # Get SFTP object from SSHClient
+            self.ftp_client = self.client.open_sftp()
+        self.ftp_client.remove(filePath)
+
+    ###############################################################
+    # Get file list on Host (SFTP)
+    # filePath: Server(host)
+    ###############################################################
+    def getFileListFromHost(self, filePath):
+        # SFTP 객체를 생성하지 않았으면...(접속한적이 없으면)
+        if self.ftp_client is None:
+            # Get SFTP object from SSHClient
+            self.ftp_client = self.client.open_sftp()
+        return self.ftp_client.listdir(filePath)
+
+    ######################################################################
+    # Get file list of host
+    # srcFilePath: Server(host)
+    ###############################################################
+    def getFileAttrListFromHost(self, srcFilePath):
+        if self.ftp_client is None:
+            # Get SFTP object from SSHClient
+            self.ftp_client = self.client.open_sftp()
+        return self.ftp_client.listdir_attr(srcFilePath)
+
+    ###############################################################
+    # Delete folder of host
+    # srcFilePath: Server(host)
+    ###############################################################
+    def deleteHostFolder(self, srcFilePath):
+        if self.ftp_client is None:
+            # Get SFTP object from SSHClient
+            self.ftp_client = self.client.open_sftp()
+
+        # # Only current folder only
+        # file_list = self.getFileListFromHost(srcFilePath)
+        # for file in file_list:
+        #     file_path = os.path.join(srcFilePath, file)  # srcFilePath /var/www  filename: log.txt -> /var/www/log.txt
+        #     file_path = file_path.replace('\\', '/')
+        #     self.deleteHostFile(file_path)
+
+        # Delete all subfolder recursive
+        file_attr_list = self.ftp_client.listdir_attr(srcFilePath)
+        for file_attr in file_attr_list:
+            path = os.path.join(srcFilePath, file_attr.filename)
+            path = path.replace('\\', '/')
+            # Path is Folder type
+            if stat.S_ISDIR(file_attr.st_mode):
+                self.deleteHostFolder(path)
+            # Path is File type
+            else:
+                self.deleteHostFile(path)
+
+        self.ftp_client.rmdir(srcFilePath)  # rm -rf target_folder
 
 
 
@@ -158,7 +240,25 @@ if __name__ == '__main__':
             # sudo command 실행
             ############################################################
             # ssh.exeCommand('sudo mkdir /myfolder')
-            ssh.sudoCommand('mkdir /elias')
+            # ssh.sudoCommand('mkdir /elias')
+
+            ############################################################
+            # 서버로 부터 파일 가져오기
+            ############################################################
+            ssh.getFromHost('./process_list.txt', 'process_list.txt')
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             ############################################################
             # Disconnect From Server

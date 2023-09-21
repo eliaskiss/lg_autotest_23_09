@@ -184,6 +184,42 @@ class MySSH:
 
         self.ftp_client.rmdir(srcFilePath)  # rm -rf target_folder
 
+    ###############################################################
+    # Get file from host with SCP
+    # scrFilePath: Server(host), dstFilePath: Local(PC, Client)
+    ###############################################################
+    def getFromHostWithSCP(self, srcFilePath, dstFilePath):
+        if self.scp_client is None:
+            self.scp_client = SCPClient(self.client.get_transport())
+        self.scp_client.get(srcFilePath, dstFilePath)
+
+    ###############################################################
+    # Put file to host with SCP
+    # srcFilePath: Local(PC, client) dstFilePath: Server(host)
+    ###############################################################
+    def putToHostWithSCP(self, srcFilePath, dstFilePath):
+        if self.scp_client == None:
+            self.scp_client = SCPClient(self.client.get_transport())
+        self.scp_client.put(srcFilePath, dstFilePath)
+
+    ###############################################################
+    # Get folder to host with SCP
+    # srcFilePath: Local(PC, client) dstFilePath: Server(host)
+    ###############################################################
+    def getFolderToHostSCP(self, srcDirPath, dstDirPath):
+        if self.scp_client == None:
+            self.scp_client = SCPClient(self.client.get_transport())
+        self.scp_client.get(srcDirPath, dstDirPath, recursive=True)
+
+    ###############################################################
+    # Put folder to host with SCP
+    # srcFilePath: Local(PC, client) dstFilePath: Server(host)
+    ###############################################################
+    def putFolderToHostSCP(self, srcDirPath, dstDirPath):
+        if self.scp_client == None:
+            self.scp_client = SCPClient(self.client.get_transport())
+        self.scp_client.put(srcDirPath, dstDirPath, recursive=True)
+
 if __name__ == '__main__':
     ssh = MySSH()
 

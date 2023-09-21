@@ -142,12 +142,21 @@ if __name__ == '__main__':
     # sql = f'insert into elias (reg_datetime, name, age) values("2023-09-21", "{name}", {age});'
     # db.execute_and_commit(sql)
 
+    # ################################################################
+    # # Get data from table
+    # ################################################################
+    # sql = 'select * from elias;'
+    # data_list = db.execute_and_return(sql)
+    # for data in data_list:
+    #     ic(data)
+
     ################################################################
-    #
+    # Get only one data from table
     ################################################################
-
-
-
+    # sql = 'select * from elias where name = "Jack" and age = 22;'
+    sql = 'select count(*) as total_count from elias;'
+    data = db.execute_and_return_one(sql)
+    ic(data)
 
 
 

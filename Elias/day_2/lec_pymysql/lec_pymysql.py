@@ -53,6 +53,32 @@ class Database:
             message = f'--> Exception is {e} (Line: {sys.exc_info()[-1].tb_lineno})'
             ic(message)
 
+    ################################################
+    # Execute  and Commit
+    ################################################
+    def execute_and_commit(self, sql, values=None):
+        try:
+            self.execute_only(sql, values)
+            self.conn.commit()
+        except Exception as e:
+            message = f'--> Exception is {e} (Line: {sys.exc_info()[-1].tb_lineno})'
+            ic(message)
+
+    ################################################
+    # Commit Only
+    ################################################
+    def execute_and_commit(self):
+        try:
+            self.conn.commit()
+        except Exception as e:
+            message = f'--> Exception is {e} (Line: {sys.exc_info()[-1].tb_lineno})'
+            ic(message)
+
+
+
+
+
+
 if __name__ == '__main__':
     db = Database(host='45.115.155.124', user='dbadmin', passwd='dbadmin', db='lg_autotest')
     db.connect_db()

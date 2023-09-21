@@ -150,14 +150,31 @@ if __name__ == '__main__':
     # for data in data_list:
     #     ic(data)
 
-    ################################################################
-    # Get only one data from table
-    ################################################################
-    # sql = 'select * from elias where name = "Jack" and age = 22;'
-    sql = 'select count(*) as total_count from elias;'
-    data = db.execute_and_return_one(sql)
-    ic(data)
+    # ################################################################
+    # # Get only one data from table
+    # ################################################################
+    # # sql = 'select * from elias where name = "Jack" and age = 22;'
+    # sql = 'select count(*) as total_count from elias;'
+    # data = db.execute_and_return_one(sql)
+    # ic(data)
 
+    # ################################################################
+    # # Update data
+    # ################################################################
+    # id =1
+    # new_name = 'Hong Gildong'
+    # new_age = 30
+    #
+    # sql = 'update elias set name = %s, age = %s, reg_datetime = current_timestamp() where id = %s;'
+    # values = (new_name, new_age, id)
+    # db.execute_and_commit(sql, values)
+
+    # ################################################################
+    # # Delete data
+    # ################################################################
+    # id = 2
+    # sql = f'delete from elias where id = {id};'
+    # db.execute_and_commit(sql)
 
 
 

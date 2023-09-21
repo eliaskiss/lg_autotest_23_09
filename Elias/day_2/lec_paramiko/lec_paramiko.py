@@ -51,12 +51,35 @@ class MySSH:
             # _, stdout, _ = self.client.exec_command(command)
             stdin, stdout, stderr = self.client.exec_command(command)
 
+            error_list = stderr.readlines()
+            if len(error_list) != 0:
+                print('Errors occurs')
+                print(error_list)
+
             if isReturn is True:
                 return stdout.readlines()
         else:
             ic('Client is not connected!!!')
 
+    ########################################################
+    # Execute sudo Shell Command
+    ########################################################
+    def sudoCommand(self, command, isReturn = False):
+        if self.isAlive():
+            stdin, stdout, stderr = self.client.exec_command('sudo ' + command)
 
+            error_list = stderr.readlines()
+            if len(error_list) != 0:
+                print('Errors occurs')
+                print(error_list)
+
+            stdin.write(self.password + '\n')
+            stdin.flush()
+
+            if isReturn is True:
+                return stdout.readlines
+        else:
+            ic('Client is not connected!!!')
 
 
 
@@ -72,17 +95,66 @@ if __name__ == '__main__':
         if ssh.connect('45.115.155.124', 'elias', 'lguser', timeout=5, port=22):
             ic('SSH is connected')
             
-            ############################################################
-            # Process List 파일생성 (ps -ef > process_list.txt)
-            ############################################################
-            ssh.exeCommand('ps -ef > process_list.txt', False)
+            # ############################################################
+            # # Process List 파일생성 (ps -ef > process_list.txt)
+            # ############################################################
+            # ssh.exeCommand('ps -ef > process_list.txt', False)
+
+            # ############################################################
+            # # 파일목록 가져오기 (ls -al)
+            # ############################################################
+            # file_list = ssh.exeCommand('ls -al', True)
+            # for file in file_list:
+            #     print(file, end='')
 
             ############################################################
-            # 파일목록 가져오기 (ls -al)
+            # > cd temp
+            # > ls -al
             ############################################################
-            file_list = ssh.exeCommand('ls -al', True)
-            for file in file_list:
-                print(file, end='')
+            # ssh.exeCommand('cd temp')
+            # file_list = ssh.exeCommand('ls -al', True)
+            # for file in file_list:
+            #     print(file, end='')
+
+            '''
+            ; - 앞의 명령어가 실패해도 다음 명령어가 실행
+            && - 앞의 명령어가 성공했을 때 다음 명령어가 실행
+            & - 앞의 명령어를 백그라운드로 돌리고 동시에 뒤의 명령어를 실행
+            https://opentutorials.org/module/2538/15818
+            '''
+            # output_list = ssh.exeCommand('cd temp && ls -al && pwd', True)
+            # # Error 발생시
+            # # output_list = ssh.exeCommand('cd temp2 && ls -al && pwd', True)
+            # for output in output_list:
+            #     print(output, end='')
+
+            # ############################################################
+            # # Shell Script 파일생성 및 실행
+            # ############################################################
+            # ssh.exeCommand('echo "ps -ef > process_list.txt" > make_process_list.sh')
+            # ssh.exeCommand('chmod +x ./make_process_list.sh')
+            # ssh.exeCommand('./make_process_list.sh')
+
+            ############################################################
+            # sudo command 실행
+            ############################################################
+            # ssh.exeCommand('sudo mkdir /myfolder')
+            ssh.sudoCommand('mkdir /elias')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         else:

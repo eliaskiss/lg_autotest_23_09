@@ -47,7 +47,15 @@ class MySSH:
     # Execute Shell Command
     ########################################################
     def exeCommand(self, command, isReturn = False):
-        pass
+        if self.isAlive():
+            # _, stdout, _ = self.client.exec_command(command)
+            stdin, stdout, stderr = self.client.exec_command(command)
+
+            if isReturn is True:
+                return stdout.readlines()
+        else:
+            ic('Client is not connected!!!')
+
 
 
 
@@ -63,6 +71,20 @@ if __name__ == '__main__':
     try:
         if ssh.connect('45.115.155.124', 'elias', 'lguser', timeout=5, port=22):
             ic('SSH is connected')
+            
+            ############################################################
+            # Process List 파일생성 (ps -ef > process_list.txt)
+            ############################################################
+            ssh.exeCommand('ps -ef > process_list.txt', False)
+
+            ############################################################
+            # 파일목록 가져오기 (ls -al)
+            ############################################################
+            file_list = ssh.exeCommand('ls -al', True)
+            for file in file_list:
+                print(file, end='')
+
+
         else:
             ic('Connection is failed')
     except Exception as e:

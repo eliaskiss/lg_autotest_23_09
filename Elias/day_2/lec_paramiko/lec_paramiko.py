@@ -88,6 +88,18 @@ class MySSH:
         if self.client is not None:
             self.client.close()
 
+    ########################################################
+    # Get File from Host (SFTP)
+    # srcFilePath: Server(host), dstFilePath: Local(PC, Client)
+    ########################################################
+    def getFromHost(self, srcFilePath, dstFilePath):
+        if self.ftp_client is None:
+            if self.client is not None:
+                self.ftp_client = self.client.open_sftp()
+            else:
+                ic('SSH is not connected!!!')
+        self.ftp_client.get(srcFilePath, dstFilePath)
+
 
 
 

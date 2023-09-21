@@ -278,42 +278,10 @@ if __name__ == '__main__':
             # ssh.deleteHostFolder('./temp2')
 
 
-
-
-
-
-
-
-            
-
-
-
-
-
-
-
-
-
-
-
             ############################################################
             # Disconnect From Server
             ############################################################
             ssh.disconnect()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         else:
             ic('Connection is failed')

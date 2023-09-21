@@ -115,7 +115,7 @@ if __name__ == '__main__':
 
     table_name = 'elias'
 
-    sql = f"CREATE TABLE {table_name}(" \
+    sql = f"CREATE TABLE `{table_name}`(" \
           "id int(11) NOT NULL AUTO_INCREMENT, " \
           "reg_datetime datetime DEFAULT current_timestamp(), " \
           "name varchar(32) DEFAULT NULL, " \

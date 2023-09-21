@@ -74,8 +74,40 @@ class Database:
             message = f'--> Exception is {e} (Line: {sys.exc_info()[-1].tb_lineno})'
             ic(message)
 
+    ################################################
+    # Execute and Return All
+    ################################################
+    def execute_and_return(self, sql, values=None):
+        try:
+            self.execute_only(sql, values)
+            data_list = self.cursor.fetchall()
+            return data_list
+        except Exception as e:
+            message = f'--> Exception is {e} (Line: {sys.exc_info()[-1].tb_lineno})'
+            ic(message)
 
+    ################################################
+    # Execute and Return One
+    ################################################
+    def execute_and_return(self, sql, values=None):
+        try:
+            # select count(*) as cnt from elias where age=10;
+            self.execute_only(sql, values)
+            data = self.cursor.fetchone()
+            return data
+        except Exception as e:
+            message = f'--> Exception is {e} (Line: {sys.exc_info()[-1].tb_lineno})'
+            ic(message)
 
+    ################################################
+    # Disconnect
+    ################################################
+    def disconnect_db(self):
+        if self.conn is not None:
+            self.conn.close()
+            self.conn = None
+            self.cursor = None
+        ic('DB is disconnected')
 
 
 

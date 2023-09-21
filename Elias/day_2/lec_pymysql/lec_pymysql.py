@@ -176,8 +176,33 @@ if __name__ == '__main__':
     # sql = f'delete from elias where id = {id};'
     # db.execute_and_commit(sql)
 
+    sql = 'select name, age from elias'
+    data_list = db.execute_and_return(sql)
 
+    for data in data_list:
+        name = data['name']
+        age = data['age']
 
+        if 'address' in data:
+            address = data['address']
+        else:
+            address = ''
+
+        ic('=================')
+        ic(name)
+        ic(age)
+        ic(address)
+
+    people_list = [{'name':'Honey', 'age':22},
+                   {'name':'Evo', 'age':20}]
+
+    for people in people_list:
+        sql = 'insert into elias (name, age) values(%s, %s);'
+        values = (people['name'], people['age'])
+        db.execute_only(sql, values)
+    db.commit_only()
+
+    db.disconnect_db()
 
 
 

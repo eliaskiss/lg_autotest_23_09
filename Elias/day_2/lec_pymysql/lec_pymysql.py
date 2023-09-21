@@ -67,7 +67,7 @@ class Database:
     ################################################
     # Commit Only
     ################################################
-    def execute_only(self):
+    def commit_only(self):
         try:
             self.conn.commit()
         except Exception as e:
@@ -113,7 +113,15 @@ if __name__ == '__main__':
     db = Database(host='45.115.155.124', user='dbadmin', passwd='dbadmin', db='lg_autotest')
     db.connect_db()
 
+    table_name = 'elias'
 
+    sql = f"CREATE TABLE {table_name}(" \
+          "id int(11) NOT NULL AUTO_INCREMENT, " \
+          "reg_datetime datetime DEFAULT current_timestamp(), " \
+          "name varchar(32) DEFAULT NULL, " \
+          "age int(11) DEFAULT NULL, " \
+          "KEY id (id) ) " \
+          "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;"
 
 
 

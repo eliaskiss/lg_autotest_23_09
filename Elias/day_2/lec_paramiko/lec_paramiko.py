@@ -68,13 +68,13 @@ class MySSH:
         if self.isAlive():
             stdin, stdout, stderr = self.client.exec_command('sudo ' + command, get_pty=True)
 
-            # error_list = stderr.readlines()
-            # if len(error_list) != 0:
-            #     print('Errors occurs')
-            #     print(error_list)
-
             stdin.write(self.password + '\n')
             time.sleep(0.1)
+
+            error_list = stderr.readlines()
+            if len(error_list) != 0:
+                print('Errors occurs')
+                print(error_list)
 
             if isReturn is True:
                 return stdout.readlines

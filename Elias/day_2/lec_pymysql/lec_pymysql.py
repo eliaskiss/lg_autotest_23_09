@@ -115,14 +115,30 @@ if __name__ == '__main__':
 
     table_name = 'elias'
 
-    sql = f"CREATE TABLE `{table_name}`(" \
-          "id int(11) NOT NULL AUTO_INCREMENT, " \
-          "reg_datetime datetime DEFAULT current_timestamp(), " \
-          "name varchar(32) DEFAULT NULL, " \
-          "age int(11) DEFAULT NULL, " \
-          "KEY id (id) ) " \
-          "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;"
-    db.execute_and_commit(sql)
+    ################################################################
+    # Create Table
+    ################################################################
+    # sql = f"CREATE TABLE `{table_name}`(" \
+    #       "id int(11) NOT NULL AUTO_INCREMENT, " \
+    #       "reg_datetime datetime DEFAULT current_timestamp(), " \
+    #       "name varchar(32) DEFAULT NULL, " \
+    #       "age int(11) DEFAULT NULL, " \
+    #       "KEY id (id) ) " \
+    #       "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;"
+    # db.execute_and_commit(sql)
+
+    ################################################################
+    # Insert Data
+    ################################################################
+    for i in range(10):
+        sql = f'insert into {table_name} (name, age) values(%s, %s);'
+        values = (f'{table_name}_{i+1}', (20 + i))
+        # db.execute_and_commit(sql, values)
+        db.execute_only(sql, values)
+    db.commit_only()
+
+    name = 'Elias Kim'
+
 
 
 

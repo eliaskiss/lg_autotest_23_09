@@ -382,7 +382,17 @@ ws['A7'].fill = PatternFill('solid', fgColor='DDDDDD')
 ws['A8'] = 'Gradient'
 ws['A8'].fill = GradientFill(stop=('000000', 'FFFFFF'))
 
-
+############################################################
+# Set Cell Alignment
+############################################################
+# horizontal_alignments = (
+#     "general", "left", "center", "right", "fill", "justify", "centerContinuous",
+#     "distributed", )
+# vertical_aligments = (
+#     "top", "center", "bottom", "justify", "distributed",
+# )
+ws['A9'] = 'Center'
+ws['A9'].alignment = Alignment(horizontal='center', vertical='center')
 
 wb.save(file_name)
 

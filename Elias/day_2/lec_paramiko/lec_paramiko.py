@@ -206,7 +206,7 @@ class MySSH:
     # Get folder to host with SCP
     # srcFilePath: Local(PC, client) dstFilePath: Server(host)
     ###############################################################
-    def getFolderToHostSCP(self, srcDirPath, dstDirPath):
+    def getFolderFromHostSCP(self, srcDirPath, dstDirPath):
         if self.scp_client == None:
             self.scp_client = SCPClient(self.client.get_transport())
         self.scp_client.get(srcDirPath, dstDirPath, recursive=True)
@@ -312,6 +312,26 @@ if __name__ == '__main__':
             # # 서버에 있는 폴더내 삭제
             # ############################################################
             # ssh.deleteHostFolder('./temp2')
+
+            # ############################################################
+            # # Get file from host with scp
+            # ############################################################
+            # ssh.getFromHostWithSCP('./make_process_list.sh', 'make_process_list.sh')
+
+            # ############################################################
+            # # Put file to host with scp
+            # ############################################################
+            # ssh.putToHostWithSCP('./make_process_list.sh', 'make_process_list_2.sh')
+
+            # ############################################################
+            # # Get folder from host with scp
+            # ############################################################
+            # ssh.getFolderFromHostSCP('temp', 'temp')
+
+            # ############################################################
+            # # Put folder to host with scp
+            # ############################################################
+            # ssh.putFolderToHostSCP('temp', 'temp2')
 
 
             ############################################################

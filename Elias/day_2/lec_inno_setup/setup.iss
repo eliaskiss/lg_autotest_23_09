@@ -10,7 +10,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{69DF6C7A-AC7D-42EE-85F4-01405C19EDC6}
+AppId={{4B5EA764-5D6C-4E0A-9F55-D58A500796BC}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
@@ -18,7 +18,7 @@ DefaultDirName="C:/MyPython"
 DefaultGroupName=MyPython
 DisableDirPage=yes
 DisableProgramGroupPage=yes
-OutputDir=D:\source\lg_autotest_23_08\Elias\4일차\inno_output
+OutputDir=D:\source\lg_autotest_23_09\Elias\day_2\inno_output
 OutputBaseFilename=MyPython
 Compression=lzma
 SolidCompression=yes
@@ -30,7 +30,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\source\lg_autotest_23_08\Elias\4일차\lec_pyqt5\dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "D:\source\lg_autotest_23_09\Elias\day_2\lec_pyqt5\dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

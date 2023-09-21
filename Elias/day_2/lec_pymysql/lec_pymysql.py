@@ -89,7 +89,7 @@ class Database:
     ################################################
     # Execute and Return One
     ################################################
-    def execute_and_return(self, sql, values=None):
+    def execute_and_return_one(self, sql, values=None):
         try:
             # select count(*) as cnt from elias where age=10;
             self.execute_only(sql, values)
@@ -109,12 +109,9 @@ class Database:
             self.cursor = None
         ic('DB is disconnected')
 
-
-
 if __name__ == '__main__':
     db = Database(host='45.115.155.124', user='dbadmin', passwd='dbadmin', db='lg_autotest')
     db.connect_db()
-
 
 
 
